@@ -31,7 +31,7 @@ public class DetectionManager : MonoBehaviour
         {
             for (int z = -borderSize; z <= borderSize; z++)
             {
-                for (int y = 0; y <= Random.Range(1, borderHeight); y++)
+                for (int y = Random.Range(0, 3 ); y <= Random.Range(2, 7); y++)
                 {
                     g =
                         (GameObject)
