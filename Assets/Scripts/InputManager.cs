@@ -8,11 +8,11 @@ public class InputManager : MonoBehaviour
     private float yaw = 0;
     private Quaternion cameraOrientation;
     private Quaternion rigOrientation;
-    private Camera camera;
+    private Camera pivotCamera;
 
     void Start()
     {
-        camera = GetComponentInChildren<Camera>();
+        pivotCamera = GetComponentInChildren<Camera>();
     }
        
     void Update()
@@ -29,7 +29,11 @@ public class InputManager : MonoBehaviour
         rigOrientation.eulerAngles = new Vector3(0, LimitAngles(yaw), 0);
         transform.rotation = Quaternion.Lerp(transform.rotation, rigOrientation, Time.time);
         cameraOrientation.eulerAngles = new Vector3(LimitAngles(camPitch), transform.rotation.eulerAngles.y, 0);
-        camera.transform.rotation = Quaternion.Lerp(camera.transform.rotation, cameraOrientation, Time.time);
+        pivotCamera.transform.rotation = Quaternion.Lerp(pivotCamera.transform.rotation, cameraOrientation, Time.time);
+
+        var planePoint = transform.position;
+        planePoint.y = 0;
+        Debug.DrawLine(transform.position, planePoint, Color.green, 0f, true);
     }
 
     float LimitAngles(float angle)
